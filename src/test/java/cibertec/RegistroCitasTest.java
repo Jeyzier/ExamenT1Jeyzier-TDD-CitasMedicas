@@ -43,4 +43,19 @@ class RegistroCitasTest {
         System.out.println("El mensaje devuelto fue: " + resultado1);
         assertEquals("Registro exitoso", resultado1);
     }
+
+    @Test
+    void testRegistrarCita_FechaInvalida() {
+        RegistroCitas registro = new RegistroCitas();
+
+        String resultado = registro.registrarCita("C123", "Maria Lopez", "12345678",
+                "2020-01-01");
+        System.out.println("El mensaje devuelto fue: " + resultado);
+        assertEquals("La fecha de la cita debe ser posterior a la fecha actual", resultado);
+
+        String resultado1= registro.registrarCita("C123", "Maria Lopez", "12345678",
+                "2026-05-01");
+        System.out.println("El mensaje devuelto fue: " + resultado1);
+        assertEquals("Registro exitoso", resultado1);
+    }
 }
