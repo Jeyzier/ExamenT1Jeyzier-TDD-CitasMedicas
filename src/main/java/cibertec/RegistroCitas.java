@@ -8,6 +8,13 @@ public class RegistroCitas {
 
     public String registrarCita(String codigo, String nombrePaciente, String numeroDocumento, String fechaCita) {
 
+//Test5
+        if (codigo == null || codigo.trim().isEmpty() ||
+                nombrePaciente == null || nombrePaciente.trim().isEmpty() ||
+                numeroDocumento == null || numeroDocumento.trim().isEmpty() ||
+                fechaCita == null || fechaCita.trim().isEmpty()) {
+            return "Debe ingresar todos los datos requeridos";
+        }
 //Test1
         if (codigo == null || !codigo.matches("^C\\d{3}$")) {
             return "Ingrese un código de cita válido";

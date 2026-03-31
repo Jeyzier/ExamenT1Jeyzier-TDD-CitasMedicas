@@ -58,4 +58,17 @@ class RegistroCitasTest {
         System.out.println("El mensaje devuelto fue: " + resultado1);
         assertEquals("Registro exitoso", resultado1);
     }
+
+    @Test
+    void testRegistrarCita_CamposVacios() {
+        RegistroCitas registro = new RegistroCitas();
+        String resultado = registro.registrarCita("C456", "", "12345678", "2026-12-31");
+        System.out.println("El mensaje devuelto fue: " + resultado);
+        assertEquals("Debe ingresar todos los datos requeridos", resultado);
+
+        String resultado1= registro.registrarCita("C123", "Maria Lopez", "12345678", "2026-05-01");
+        System.out.println("El mensaje devuelto fue: " + resultado1);
+        assertEquals("Registro exitoso", resultado1);
+
+    }
 }
