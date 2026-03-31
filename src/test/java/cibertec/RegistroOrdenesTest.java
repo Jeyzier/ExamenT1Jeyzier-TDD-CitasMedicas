@@ -27,7 +27,7 @@ class RegistroOrdenesTest {
 
     @Test
     void testRegistrarOrden_Exitosa_ConDescuento() {
-        // Preparación (Simulamos lo que devolverían las BD)
+
         Cliente clienteActivo = new Cliente("C001", true);
         when(clienteRepository.buscarPorId("C001")).thenReturn(clienteActivo);
 
@@ -38,12 +38,28 @@ class RegistroOrdenesTest {
         Map<String, Integer> items = new HashMap<>();
         items.put("P001", 1);
 
-        // Ejecución
         String resultado = registroOrdenes.registrarOrden("C001", items);
 
-        // Verificación
         assertTrue(resultado.contains("OR-0001"));
         assertTrue(resultado.contains(LocalDate.now().toString()));
         assertTrue(resultado.contains("Total: 540.0")); // 600 - 10% de descuento
+    }
+
+    @Test
+    void testRegistrarOrden_SinStock_CancelaOrden() {
+        // Simulamos un cliente activo
+        Cliente clienteActivo = new Cliente("C002", true);
+        when(clienteRepository.buscarPorId("C002")).thenReturn(clienteActivo);
+
+        // Simulamos un producto que SÓLO tiene 2 en stock
+        Producto laptop = new Producto("P001", 600.0, 2);
+        when(productoRepository.buscarPorId("P001")).thenReturn(laptop);
+
+        Map<String, Integer> itemsDelCarrito = new HashMap<>();
+        itemsDelCarrito.put("P001", 5);
+
+        String resultado = registroOrdenes.registrarOrden("C002", itemsDelCarrito);
+
+        assertEquals("Error: Producto sin stock. Orden cancelada.", resultado);
     }
 }
