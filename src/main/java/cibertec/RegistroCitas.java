@@ -41,7 +41,7 @@ public class RegistroCitas {
             return "La fecha de la cita debe ser posterior a la fecha actual";
         }
 
-        return "Registro exitoso";
+        return "La cita ha sido registrada correctamente";
 
     }
 }
